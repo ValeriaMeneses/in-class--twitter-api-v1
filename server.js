@@ -1,6 +1,7 @@
 const express = require('express');
 const { Model } = require('objection');
 const ejs = require('ejs');
+const bodyParser = require('body-parser');
 
 const pageRouter = require('./src/routes/pageRouter.js');
 const apiRouter = require('./src/routes/apiRouter.js');
@@ -20,6 +21,10 @@ app.locals.db = appDb;
 app.engine('ejs', ejs.renderFile);
 app.set('view engine', 'ejs');
 app.set('views', `${__dirname}/src/views`);
+
+//
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Static files
 app.use(express.static(`${__dirname}/public`))
